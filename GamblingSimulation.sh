@@ -13,7 +13,7 @@ totalLooseTimeForDay=0;
 totalDayWon=0;
 totalDayLost=0;
 
-for(( dayCounter=1;dayCounter<=20;dayCounter++ ))
+for(( dayCounter=1;dayCounter<=30;dayCounter++ ))
 do
 	while [[ $stake -gt $minimumStakeAfterBetForDay && $stake -lt $maximumStakeAfterBetForDay ]]
 	do
