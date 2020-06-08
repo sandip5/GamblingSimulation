@@ -1,7 +1,7 @@
-#!/bin/bash -x
+#!/bin/bash
 declare -A DayReport
 
-echo "Gambler start game with a stake of $100 every day and bet $1 for every game."
+echo "Gambler start game with a stake of 100 every day and bet $1 for every game."
 stake=100;
 betAmountEachTime=1;
 isWin=0;
@@ -10,18 +10,30 @@ maximumStakeAfterBetForDay=150;
 minimumStakeAfterBetForDay=50;
 totalWinTimeForDay=0;
 totalLooseTimeForDay=0;
+totalDayWon=0;
+totalDayLost=0;
 
-while [[ $stake -ge $minimumStakeAfterBetForDay && $stake -le $maximumStakeAfterBetForDay ]]
+for(( dayCounter=1;dayCounter<=20;dayCounter++ ))
 do
-	randomCheck=$(( RANDOM%2 ))
-	if [[ $isWin -eq $randomCheck ]]
+	while [[ $stake -gt $minimumStakeAfterBetForDay && $stake -lt $maximumStakeAfterBetForDay ]]
+	do
+		randomCheck=$(( RANDOM%2 ))
+		if [[ $isWin -eq $randomCheck ]]
+		then
+			stake=$(( $stake + $betAmountEachTime ))
+			totalWinTimeForDay=$(( $totalWinTimeForDay + 1 ))
+		else
+			stake=$(( $stake - $betAmountEachTime ))
+			totalLooseTimeForDay=$(( $totalLooseTimeForDay + 1 ))
+		fi
+	done
+	if [[ $totalWinTimeForDay -ge $totalLooseTimeForDay ]]
 	then
-		echo "Win $1"
-		stake=$(( $stake + $betAmountEachTime ))
-		totalWinTimeForDay=$(( $totalWinTimeForDay + 1 ))
+			echo "Day"$dayCounter" Won "$stake
 	else
-		echo "Loose $1"
-		stake=$(( $stake - $betAmountEachTime ))
-		totalLooseTimeForDay=$(( $totalLooseTimeForDay + 1 ))
+			echo "Day"$dayCounter" Loose "$stake
 	fi
+stake=100;
+totalWinTimeForDay=0;
+totalLooseTimeForDay=0;
 done
