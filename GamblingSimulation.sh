@@ -3,7 +3,8 @@ declare -A WinDayReport
 declare -A LooseDayReport
 
 echo "Gambler start game with a stake of 100 every day and bet 1 for every game."
-read -p "Enter 1 to start game " play
+
+play=1;
 stake=100;
 betAmountEachTime=1;
 isWin=0;
@@ -55,8 +56,8 @@ totalLooseTimeForDay=0;
 done
 if(( $totalWinDay -gt $totalLooseDay ))
 then
-      echo "Win For Month. If you want to play again enter 1"
-      read -p play
+      echo "Win For Month."
+      read -p "If you want to play again enter 1 " play
 else
       echo "Loose for month. You are not able to play for next month."
       play=3;
